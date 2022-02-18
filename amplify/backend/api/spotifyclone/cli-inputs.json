@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "spotifyclone",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/jay/React-Apps/EXPO/SpotifyClone/amplify/backend/api/spotifyclone/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authspotifyclone80ce0089"
+    }
+  }
+}
