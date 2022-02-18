@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Root from "./navigations/Root";
 import { getStatusBarHeight } from "react-native-status-bar-height";
+import PlayerWidget from "./components/PlayerWidget";
 
 const statusBarHeight = getStatusBarHeight();
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
     <SafeAreaProvider style={styles.container}>
       <Root />
       <StatusBar />
+      <PlayerWidget />
     </SafeAreaProvider>
   );
 };

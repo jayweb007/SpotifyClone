@@ -22,7 +22,7 @@ export default function BottomTabNavigator() {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: "#81b71a",
-        tabBarStyle: { backgroundColor: "#000" },
+        tabBarStyle: { backgroundColor: "#191919" },
       }}
     >
       <BottomTab.Screen
@@ -32,7 +32,7 @@ export default function BottomTabNavigator() {
           headerShown: false,
           title: "Home ",
           headerTitleStyle: { color: "#fff" },
-          headerStyle: { backgroundColor: "#000" },
+          headerStyle: { backgroundColor: "#191919" },
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
           ),

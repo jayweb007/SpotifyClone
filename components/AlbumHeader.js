@@ -35,12 +35,13 @@ const AlbumHeader = ({ albumHead }) => {
       <TouchableOpacity style={styles.button}>
         <Text
           style={{
-            fontSize: 27,
+            fontSize: 20,
             fontFamily: "SailecBold",
+            fontWeight: "bold",
             color: "#fff",
           }}
         >
-          Play
+          PLAY
         </Text>
       </TouchableOpacity>
     </View>
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 20,
-    paddingHorizontal: 80,
+    paddingHorizontal: 65,
     backgroundColor: "#81b71a",
     borderRadius: 100,
   },

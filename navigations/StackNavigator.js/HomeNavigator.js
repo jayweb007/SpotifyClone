@@ -30,7 +30,7 @@ export default function HomeNavigator() {
           //headerShown: false,
           title: " ",
           headerTitleStyle: { color: "#fff" },
-          headerStyle: { backgroundColor: "#000" },
+          headerStyle: { backgroundColor: "#191919" },
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate("Modal")}
