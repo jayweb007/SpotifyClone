@@ -28,9 +28,9 @@ const AlbumHeader = ({ albumHead }) => {
       />
       <Text style={styles.name}>{albumHead.name}</Text>
       <View style={{ flexDirection: "row", marginBottom: 10 }}>
-        <Text style={styles.by}>BY {albumHead.by}</Text>
+        <Text style={styles.by}>By {albumHead.by}</Text>
         <Entypo name="dot-single" size={24} color="#ccc" />
-        <Text style={styles.likes}>{albumHead.numberOfLikes} LIKES</Text>
+        <Text style={styles.likes}>{albumHead.numberOfLikes} Likes</Text>
       </View>
       <TouchableOpacity style={styles.button}>
         <Text
