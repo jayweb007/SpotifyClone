@@ -1,11 +1,14 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
+
 //
 //
 //
 const Album = ({ album }) => {
+  const navigation = useNavigation();
   let [fontsLoaded] = useFonts({
     SailecMedium: require("../assets/fonts/SailecMedium.ttf"),
   });
@@ -13,14 +16,21 @@ const Album = ({ album }) => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
+  const onPress = () => {
+    // console.warn(`Album ID : ${album.id}`);
+    navigation.navigate("AlbumScreen", { id: album.id });
+  };
+
+  //
   return (
-    <View style={styles.container}>
+    <Pressable onPress={onPress} style={styles.container}>
       <Image
         source={{ uri: album.imageUri }}
         style={{ width: "100%", height: 175, resizeMode: "contain" }}
       />
       <Text style={styles.title}>{album.artistsHeadline}</Text>
-    </View>
+    </Pressable>
   );
 };
 

@@ -8,7 +8,7 @@ import {
   FontAwesome,
 } from "@expo/vector-icons";
 import HomeScreen from "../../screens/HomeScreen";
-import MovieDetailsScreen from "../../screens/MovieDetailsScreen";
+import AlbumScreen from "../../screens/AlbumScreen";
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
@@ -24,8 +24,8 @@ export default function HomeNavigator() {
         options={{ headerShown: false, title: "Home" }}
       />
       <HomeStack.Screen
-        name="MovieDetailsScreen"
-        component={MovieDetailsScreen}
+        name="AlbumScreen"
+        component={AlbumScreen}
         options={({ navigation }) => ({
           //headerShown: false,
           title: " ",
