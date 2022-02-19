@@ -36,6 +36,17 @@ export const listAlbumCategories = /* GraphQL */ `
         id
         title
         albums {
+          items {
+            id
+            name
+            by
+            numberOfLikes
+            imageUri
+            artistsHeadline
+            albumCategoryID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt

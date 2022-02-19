@@ -1,20 +1,41 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { API, graphqlOperation } from "aws-amplify";
 import AlbumCategory from "../components/AlbumCategory";
 
-import data from "../assets/data/albumCategories";
+// import data from "../assets/data/albumCategories";
+import { listAlbumCategories } from "../src/graphql/queries";
 
 //
 //
 const HomeScreen = () => {
+  const [albumCategory, setAlbumCategory] = useState([]);
+
+  useEffect(() => {
+    const fetchalbumCategory = async () => {
+      try {
+        const response = await API.graphql(
+          graphqlOperation(listAlbumCategories)
+        );
+
+        setAlbumCategory(response.data.listAlbumCategories.items);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchalbumCategory();
+  }, []);
+  //
+  //
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={albumCategory}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <AlbumCategory albums={item.albums} title={item.title} />
+          <AlbumCategory albums={item.albums.items} title={item.title} />
         )}
       />
     </View>

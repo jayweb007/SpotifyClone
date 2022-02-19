@@ -18,7 +18,7 @@ const AlbumHeader = ({ albumHead }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: albumHead.imageUri }}
+        source={{ uri: albumHead?.imageUri }}
         style={{
           width: 200,
           height: 200,
@@ -26,11 +26,11 @@ const AlbumHeader = ({ albumHead }) => {
           marginBottom: 35,
         }}
       />
-      <Text style={styles.name}>{albumHead.name}</Text>
+      <Text style={styles.name}>{albumHead?.name}</Text>
       <View style={{ flexDirection: "row", marginBottom: 10 }}>
-        <Text style={styles.by}>By {albumHead.by}</Text>
+        <Text style={styles.by}>By {albumHead?.by}</Text>
         <Entypo name="dot-single" size={24} color="#ccc" />
-        <Text style={styles.likes}>{albumHead.numberOfLikes} Likes</Text>
+        <Text style={styles.likes}>{albumHead?.numberOfLikes} Likes</Text>
       </View>
       <TouchableOpacity style={styles.button}>
         <Text
