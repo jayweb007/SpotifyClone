@@ -21,6 +21,8 @@ const PlayerWidget = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(null);
   const [position, setPosition] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
   const songId = useSelector(selectSongId);
 
   //Fetching song with songId from server
@@ -82,6 +84,14 @@ const PlayerWidget = () => {
     }
   };
 
+  //On Like PRESSED
+  const onLikePress = () => {
+    const amount = isLiked ? -1 : 1;
+    setLikesCount(likesCount + amount);
+
+    setIsLiked(!isLiked);
+  };
+
   //PlayerWidget Progress Bar ICON
   const getProgress = () => {
     if (sound === null || duration === null || position === null) {
@@ -132,13 +142,21 @@ const PlayerWidget = () => {
             <Entypo name="dot-single" size={24} color="#ccc" />
             <Text style={styles.artist}>{song?.artist}</Text>
           </View>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <AntDesign
-              name="hearto"
-              size={24}
-              color="#ccc"
-              style={{ marginRight: 25 }}
-            />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginRight: 15,
+            }}
+          >
+            <TouchableOpacity onPress={onLikePress}>
+              <AntDesign
+                name={isLiked ? `heart` : `hearto`}
+                size={24}
+                color={isLiked ? `#81b71a` : `#ccc`}
+                style={{ marginRight: 25 }}
+              />
+            </TouchableOpacity>
             <TouchableOpacity onPress={onPlayPausePress}>
               <FontAwesome
                 name={isPlaying ? "pause" : "play"}
