@@ -1,25 +1,48 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
+import { API, graphqlOperation } from "aws-amplify";
+
+import { Audio } from "expo-av";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 import { Entypo, AntDesign, FontAwesome } from "@expo/vector-icons";
-import { Audio } from "expo-av";
-import albumDetails from "../assets/data/albumDetails";
+import { selectSongId } from "../redux/slices/playerWidgetSlice";
+import { useSelector } from "react-redux";
+import { getSong } from "../src/graphql/queries";
 
-const song = albumDetails.songs[0];
 //
 //
 const PlayerWidget = () => {
   let [fontsLoaded] = useFonts({
     SailecMedium: require("../assets/fonts/SailecMedium.ttf"),
   });
-  const [sound, setSound] = useState();
+  const [song, setSong] = useState(null);
+  const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(null);
   const [position, setPosition] = useState(null);
+  const songId = useSelector(selectSongId);
 
+  //Fetching song with songId from server
+  useEffect(() => {
+    const fetchSong = async () => {
+      try {
+        const response = await API.graphql(
+          graphqlOperation(getSong, { id: songId })
+        );
+
+        setSong(response.data.getSong);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchSong();
+  }, [songId]);
+
+  //
   const onPlayBackStatusUpdate = (status) => {
-    console.log(status);
+    // console.log(status);
     setIsPlaying(status.isPlaying);
     setDuration(status.durationMillis);
     setPosition(status.positionMillis);
@@ -38,25 +61,28 @@ const PlayerWidget = () => {
     setSound(newSound);
   };
 
+  //Play Current Song
   useEffect(() => {
-    //Play Current Song
+    if (song) {
+      playCurrentSong();
+    }
+  }, [song]);
 
-    playCurrentSong();
-  }, []);
-
+  //play pause
   const onPlayPausePress = async () => {
     if (!sound) {
       return;
     }
 
     if (isPlaying) {
-      await sound.pauseAsync();
-      // await sound.stopAsync();
+      // await sound.pauseAsync();
+      await sound.stopAsync();
     } else {
       await sound.playAsync();
     }
   };
 
+  //PlayerWidget Progress Bar ICON
   const getProgress = () => {
     if (sound === null || duration === null || position === null) {
       return 0;
@@ -67,6 +93,10 @@ const PlayerWidget = () => {
 
   if (!fontsLoaded) {
     return <AppLoading />;
+  }
+  // if no song dont display playerWidget
+  if (!song) {
+    return null;
   }
 
   //
@@ -81,7 +111,7 @@ const PlayerWidget = () => {
       />
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Image
-          source={{ uri: song.imageUri }}
+          source={{ uri: song?.imageUri }}
           style={{
             width: 70,
             height: 70,
@@ -98,9 +128,9 @@ const PlayerWidget = () => {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Text style={styles.title}>{song.title}</Text>
+            <Text style={styles.title}>{song?.title}</Text>
             <Entypo name="dot-single" size={24} color="#ccc" />
-            <Text style={styles.artist}>{song.artist}</Text>
+            <Text style={styles.artist}>{song?.artist}</Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <AntDesign
